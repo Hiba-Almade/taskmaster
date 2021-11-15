@@ -31,5 +31,37 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(all);
             }
         });
+
+        Button task1button=findViewById(R.id.labButton);
+        task1button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String task1=task1button.getText().toString();
+                Intent taskDetailsIntent = new Intent(MainActivity.this, taskDetails.class);
+                taskDetailsIntent.putExtra("title",task1);
+                startActivity(taskDetailsIntent);
+            }
+        });
+        Button task2button=findViewById(R.id.cookingButton);
+        task2button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String task2=task2button.getText().toString();
+                Intent taskDetailsIntent = new Intent(MainActivity.this, taskDetails.class);
+                taskDetailsIntent.putExtra("title",task2);
+                startActivity(taskDetailsIntent);
+            }
+        });
+
+        Button task3button=findViewById(R.id.cleanButton);
+        task3button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String task3=task3button.getText().toString();
+                Intent taskDetailsIntent = new Intent(MainActivity.this, taskDetails.class);
+                taskDetailsIntent.putExtra("title",task3);
+                startActivity(taskDetailsIntent);
+            }
+        });
     }
 }
