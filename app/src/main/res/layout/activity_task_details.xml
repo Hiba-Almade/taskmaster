@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".taskDetails">
+
+    <TextView
+        android:id="@+id/titleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:text="task title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="361dp"
+        android:layout_height="188dp"
+        android:layout_marginTop="104dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempor, ligula at imperdiet consequat, tellus magna laoreet augue, vel consequat lectus nibh at augue. Maecenas vel nunc ex. Vivamus ullamcorper porta risus, a tristique ligula vestibulum nec. Nullam sed convallis enim, sed egestas massa. Quisque sit amet leo felis. Ut fringilla, nunc id auctor accumsan, purus erat semper elit, eu dapibus ipsum felis consectetur lectus. Morbi et gravida metus. Integer feugiat lacus ante, ac pulvinar neque sodales sit amet. Donec sagittis, mauris eu volutpat porta, sem neque tristique arcu, vitae convallis dui libero vel magna. Integer a orci consectetur, hendrerit enim ac, bibendum erat. Fusce ut odio vel dolor bibendum tempus. Vestibulum in justo ac justo rhoncus sodales malesuada semper eros. Cras condimentum turpis ut nibh accumsan, id fringilla diam scelerisque."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleLabel" />
+</androidx.constraintlayout.widget.ConstraintLayout>
