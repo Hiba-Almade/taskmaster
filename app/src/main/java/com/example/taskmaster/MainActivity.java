@@ -3,9 +3,12 @@ package com.example.taskmaster;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +16,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TextView textView=findViewById(R.id.textView);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String userName = sharedPreferences.getString("userName","User");
+        textView.setText(userName+" Tasks");
 
         Button addTask=findViewById(R.id.addTask);
         addTask.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
                 Intent taskDetailsIntent = new Intent(MainActivity.this, taskDetails.class);
                 taskDetailsIntent.putExtra("title",task3);
                 startActivity(taskDetailsIntent);
+            }
+        });
+
+        Button settingbutton=findViewById(R.id.settingButton);
+        settingbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settingIntent = new Intent(MainActivity.this, setting.class);
+                startActivity(settingIntent);
             }
         });
     }
