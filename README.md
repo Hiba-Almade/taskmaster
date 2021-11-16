@@ -47,3 +47,15 @@
 
 ![setting](screenshots/setting.png)
 
+------
+
+
+#### lab 28:
+
+update the home page to be contains RecyclerView which hold the list of tasks and view it as a list for the user with  onClick listener on each ViewHolder to move to task details page with the title of the clicked task
+
+#### Screenshots:
+
+**Home page**
+
+![homepage](screenshots/homepage3.png)
