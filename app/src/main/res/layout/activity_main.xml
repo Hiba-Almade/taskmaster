@@ -6,93 +6,104 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/settingButton"
-        android:layout_width="96dp"
-        android:layout_height="59dp"
-        android:layout_marginBottom="468dp"
-        android:background="#001CBA"
-        android:text="Setting"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.911"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/allTasks"
-        android:layout_width="97dp"
-        android:layout_height="67dp"
-        android:layout_marginBottom="460dp"
-        android:text="All Tasks"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/settingButton"
+            android:layout_width="96dp"
+            android:layout_height="59dp"
+            android:layout_marginBottom="468dp"
+            android:background="#001CBA"
+            android:text="Setting"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.911"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="193dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="76dp"
-        android:text="My tasks"
-        android:textSize="36dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/allTasks"
+            android:layout_width="97dp"
+            android:layout_height="67dp"
+            android:layout_marginBottom="460dp"
+            android:text="All Tasks"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="139dp"
-        android:layout_height="116dp"
-        android:layout_marginTop="56dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/placeholder" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="193dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="76dp"
+            android:text="My tasks"
+            android:textSize="36dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/addTask"
-        android:layout_width="96dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="468dp"
-        android:background="#001CBA"
-        android:text="Add Task"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="139dp"
+            android:layout_height="116dp"
+            android:layout_marginTop="56dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.058"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/placeholder" />
 
-    <Button
-        android:id="@+id/labButton"
-        android:layout_width="268dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="312dp"
-        android:text="solve the lab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.419"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/addTask"
+            android:layout_width="96dp"
+            android:layout_height="59dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="468dp"
+            android:background="#001CBA"
+            android:text="Add Task"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/cookingButton"
-        android:layout_width="268dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="424dp"
-        android:text="cooking"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.419"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--        <Button-->
+<!--            android:id="@+id/labButton"-->
+<!--            android:layout_width="268dp"-->
+<!--            android:layout_height="75dp"-->
+<!--            android:layout_marginTop="296dp"-->
+<!--            android:text="solve the lab"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.314"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-    <Button
-        android:id="@+id/cleanButton"
-        android:layout_width="268dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="548dp"
-        android:text="clean the home"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.419"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--        <Button-->
+<!--            android:id="@+id/cookingButton"-->
+<!--            android:layout_width="268dp"-->
+<!--            android:layout_height="75dp"-->
+<!--            android:layout_marginTop="388dp"-->
+<!--            android:text="cooking"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.314"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/cleanButton"-->
+<!--            android:layout_width="268dp"-->
+<!--            android:layout_height="75dp"-->
+<!--            android:layout_marginTop="484dp"-->
+<!--            android:text="clean the home"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.314"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleTask"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="304dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
