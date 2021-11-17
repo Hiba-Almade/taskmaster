@@ -59,3 +59,16 @@ update the home page to be contains RecyclerView which hold the list of tasks an
 **Home page**
 
 ![homepage](screenshots/homepage3.png)
+
+---
+
+#### lab 29:(Room)
+
+* Modify Add Task form to save the data entered in as a Task in local database.
+
+* Refactor homepage’s RecyclerView to display all Task entities in the database.
+* Refactor task details page to display the task info.
+
+##### Screenshots:
+
+no update in the UI design  
