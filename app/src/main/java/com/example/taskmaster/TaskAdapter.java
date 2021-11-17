@@ -58,6 +58,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             public void onClick(View v) {
                 Intent taskDetailsIntent = new Intent(v.getContext(), taskDetails.class);
                 taskDetailsIntent.putExtra("title",holder.task.title);
+                taskDetailsIntent.putExtra("id",holder.task.id);
                 v.getContext().startActivity(taskDetailsIntent);
             }
         });
