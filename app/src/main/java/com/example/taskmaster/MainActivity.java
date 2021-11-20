@@ -77,6 +77,33 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+//
+//        TaskDataBase taskDataBase=TaskDataBase.getInstance(this);
+//        TaskDao taskDao=taskDataBase.taskDao();
+//        List<Task> tasks=taskDao.getAll();
+////        tasks.add(new Task("Solve the lab ","solve lab 28","complete"));
+////        tasks.add(new Task("cooking","cook rice and meet","assigned"));
+////        tasks.add(new Task("clean","clean the home","new"));
+////        tasks.add(new Task("shopping","buy something","new"));
+//        RecyclerView recyclerView=findViewById(R.id.recycleTask);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(new TaskAdapter(tasks));
+
+
+
+        TaskDataBase taskDataBase = TaskDataBase.getInstance(this);
+        TaskDao taskDao = taskDataBase.taskDao();
+        List<Task> tasks = taskDao.getAll();
+
+        //RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.recycleTask);
+        TaskAdapter taskAdapter = new TaskAdapter(tasks, this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.canScrollVertically();
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(taskAdapter);
+
         Button settingbutton=findViewById(R.id.settingButton);
         settingbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,18 +112,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(settingIntent);
             }
         });
-
-        TaskDataBase taskDataBase=TaskDataBase.getInstance(this);
-        TaskDao taskDao=taskDataBase.taskDao();
-
-        List<Task> tasks=taskDao.getAll();
-//        tasks.add(new Task("Solve the lab ","solve lab 28","complete"));
-//        tasks.add(new Task("cooking","cook rice and meet","assigned"));
-//        tasks.add(new Task("clean","clean the home","new"));
-//        tasks.add(new Task("shopping","buy something","new"));
-        RecyclerView recyclerView=findViewById(R.id.recycleTask);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new TaskAdapter(tasks));
 
 
 

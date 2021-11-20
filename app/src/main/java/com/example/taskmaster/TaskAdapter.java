@@ -29,7 +29,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         }
     }
 
-    public TaskAdapter(List<Task> allTask) {
+    public TaskAdapter(List<Task> allTask, MainActivity mainActivity) {
         this.allTask = allTask;
     }
 
