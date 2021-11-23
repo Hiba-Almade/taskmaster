@@ -12,27 +12,31 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.datastore.generated.model.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
-    List<Task> allTask=new ArrayList<Task>();
-    Context context;
-    public static class TaskViewHolder extends RecyclerView.ViewHolder {
+    List<Task> allTask;
+
+    public TaskAdapter(List<Task> tasks) {
+        this.allTask = tasks;
+
+    }
+
+    public static class TaskViewHolder extends RecyclerView.ViewHolder{
 
         public Task task;
-        public View view;
+        public View itemView;
+
+
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.view=itemView;
+            this.itemView = itemView;
         }
     }
-
-    public TaskAdapter(List<Task> allTask, MainActivity mainActivity) {
-        this.allTask = allTask;
-    }
-
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,21 +52,24 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         TextView state=holder.itemView.findViewById(R.id.stateFragment);
         TextView body=holder.itemView.findViewById(R.id.bodyFragment);
 
-        title.setText(holder.task.title);
-        state.setText(holder.task.state);
-        body.setText(holder.task.body);
+        title.setText(holder.task.getTitle());
+        state.setText(holder.task.getState());
+        body.setText(holder.task.getBody());
 
         ConstraintLayout constraintLayout = holder.itemView.findViewById(R.id.fragmentLayout);
         constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent taskDetailsIntent = new Intent(v.getContext(), taskDetails.class);
-                taskDetailsIntent.putExtra("title",holder.task.title);
-                taskDetailsIntent.putExtra("id",holder.task.id);
+                taskDetailsIntent.putExtra("title",title.getText().toString());
+                taskDetailsIntent.putExtra("body",body.getText().toString());
+                taskDetailsIntent.putExtra("state",state.getText().toString());
+//                taskDetailsIntent.putExtra("id",holder.task.getId());
                 v.getContext().startActivity(taskDetailsIntent);
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

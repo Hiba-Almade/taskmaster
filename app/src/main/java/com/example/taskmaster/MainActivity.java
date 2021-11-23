@@ -8,9 +8,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.AWSDataStorePlugin;
+import com.amplifyframework.datastore.generated.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +29,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        try {
+            // Add these lines to add the AWSApiPlugin plugins
+            Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.addPlugin(new AWSDataStorePlugin());
+            Amplify.configure(getApplicationContext());
+            Log.i("MyAmplifyApp", "Initialized Amplify");
+        } catch (AmplifyException error) {
+            Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
+        }
 
         TextView textView=findViewById(R.id.textView);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -91,18 +109,46 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        TaskDataBase taskDataBase = TaskDataBase.getInstance(this);
-        TaskDao taskDao = taskDataBase.taskDao();
-        List<Task> tasks = taskDao.getAll();
+//        TaskDataBase taskDataBase = TaskDataBase.getInstance(this);
+//        TaskDao taskDao = taskDataBase.taskDao();
+//        List<Task> tasks = taskDao.getAll();
+//
+//        //RecyclerView
+//        RecyclerView recyclerView = findViewById(R.id.recycleTask);
+//        TaskAdapter taskAdapter = new TaskAdapter(tasks, this);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//        linearLayoutManager.canScrollVertically();
+//        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+//        recyclerView.setAdapter(taskAdapter);
 
-        //RecyclerView
+        List<Task> taskList=new ArrayList<>();
+//        Amplify.API.query(
+//                ModelQuery.list(Task.class),
+//                response -> {
+//                    for (Task todo : response.getData()) {
+//                        taskList.add(todo);
+//                    }
+//                    Log.i("list",taskList.toString());
+//                },
+//                error -> Log.e("MyAmplifyApp", "Query failure", error)
+//        );
+
+        Amplify.DataStore.query(
+                Task.class,
+                tasks -> {
+                    while (tasks.hasNext()) {
+                        Task task = tasks.next();
+                        taskList.add(task);
+                        Log.i("list", "Id " + task.getId());
+                    }
+                },
+                error -> Log.e("MyAmplifyApp", "Query failure", error)
+        );
         RecyclerView recyclerView = findViewById(R.id.recycleTask);
-        TaskAdapter taskAdapter = new TaskAdapter(tasks, this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.canScrollVertically();
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(taskAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        recyclerView.setAdapter(new TaskAdapter(taskList));
+
 
         Button settingbutton=findViewById(R.id.settingButton);
         settingbutton.setOnClickListener(new View.OnClickListener() {

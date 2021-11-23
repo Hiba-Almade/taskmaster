@@ -1,0 +1,28 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-taskmaster-dev-173359-authRole",
+      "UnauthRoleArn": "arn:aws:iam::933669891220:role/amplify-taskmaster-dev-173359-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::933669891220:role/amplify-taskmaster-dev-173359-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-taskmaster-dev-173359-deployment",
+      "UnauthRoleName": "amplify-taskmaster-dev-173359-unauthRole",
+      "StackName": "amplify-taskmaster-dev-173359",
+      "StackId": "arn:aws:cloudformation:us-east-1:933669891220:stack/amplify-taskmaster-dev-173359/cd5d76c0-4c72-11ec-b62d-121d2604b04f",
+      "AmplifyAppId": "d1cxcvpzgsomke"
+    }
+  },
+  "hibaalmade": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-taskmaster-hibaalmade-183101-authRole",
+      "UnauthRoleArn": "arn:aws:iam::933669891220:role/amplify-taskmaster-hibaalmade-183101-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::933669891220:role/amplify-taskmaster-hibaalmade-183101-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-taskmaster-hibaalmade-183101-deployment",
+      "UnauthRoleName": "amplify-taskmaster-hibaalmade-183101-unauthRole",
+      "StackName": "amplify-taskmaster-hibaalmade-183101",
+      "StackId": "arn:aws:cloudformation:us-east-1:933669891220:stack/amplify-taskmaster-hibaalmade-183101/c14972a0-4c7a-11ec-af85-0ead71c5485b",
+      "AmplifyAppId": "d1cxcvpzgsomke"
+    }
+  }
+}

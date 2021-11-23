@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.amplifyframework.datastore.generated.model.Task;
+
 public class taskDetails extends AppCompatActivity {
 
     @Override
@@ -14,17 +16,27 @@ public class taskDetails extends AppCompatActivity {
         setContentView(R.layout.activity_task_details);
 
 
-        TaskDataBase taskDataBase=TaskDataBase.getInstance(this);
-        TaskDao taskDao=taskDataBase.taskDao();
-        Intent fromHome=getIntent();
-        String id =fromHome.getIntExtra("id",0)+"";
-        Task task=taskDao.findTaskById(id);
-        String title = task.title;
-        String body=task.body;
+//        TaskDataBase taskDataBase=TaskDataBase.getInstance(this);
+//        TaskDao taskDao=taskDataBase.taskDao();
+//        Intent fromHome=getIntent();
+//        String id =fromHome.getIntExtra("id",0)+"";
+//        Task task=taskDao.findTaskById(id);
+//        String title = task.title;
+//        String body=task.body;
+//
+//        TextView titleLabel = findViewById(R.id.titleLabel);
+//        TextView bodyLabel=findViewById(R.id.descLabel);
+//        titleLabel.setText(title);
+//        bodyLabel.setText(body);
 
+        String title =getIntent().getStringExtra("title");
+        String body =getIntent().getStringExtra("body");
+        String state =getIntent().getStringExtra("state");
         TextView titleLabel = findViewById(R.id.titleLabel);
         TextView bodyLabel=findViewById(R.id.descLabel);
         titleLabel.setText(title);
         bodyLabel.setText(body);
+
+
     }
 }
