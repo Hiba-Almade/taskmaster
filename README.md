@@ -72,3 +72,18 @@ update the home page to be contains RecyclerView which hold the list of tasks an
 ##### Screenshots:
 
 no update in the UI design  
+
+
+---
+
+#### lab 32:
+
+* configure and add the Amplify dynamoDB to the app
+* create GraphQL model as a schema and the Amplify generated it as model class.
+* save and retrieve the data from the dynamoDB instead of RoomDB
+
+
+##### Screenshots:
+
+no update in the UI design
+
