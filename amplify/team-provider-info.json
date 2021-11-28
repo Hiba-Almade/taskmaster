@@ -23,6 +23,11 @@
       "StackName": "amplify-taskmaster-hibaalmade-183101",
       "StackId": "arn:aws:cloudformation:us-east-1:933669891220:stack/amplify-taskmaster-hibaalmade-183101/c14972a0-4c7a-11ec-af85-0ead71c5485b",
       "AmplifyAppId": "d1cxcvpzgsomke"
+    },
+    "categories": {
+      "auth": {
+        "taskmasterb266feff": {}
+      }
     }
   }
 }
