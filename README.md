@@ -87,3 +87,28 @@ no update in the UI design
 
 no update in the UI design
 
+---
+
+
+#### lab 33:
+
+* Add new Modal **Team**
+* Edit add task page to choose team
+* Select the team from Setting page and render the task in the main page depending on what you choose
+
+
+##### Screenshots:
+
+
+**Home page**
+
+![homepage](screenshots/home33.png)
+
+**Add Task page**
+
+![add](screenshots/add33.png)
+
+**Setting page**
+
+![setting](screenshots/setting33.png)
+

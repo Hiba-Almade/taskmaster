@@ -8,13 +8,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.datastore.generated.model.Team;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class addTask extends AppCompatActivity {
 
@@ -24,28 +31,61 @@ public class addTask extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        try {
-            Amplify.addPlugin(new AWSApiPlugin());
-        } catch (AmplifyException e) {
-            e.printStackTrace();
-        }
+        List<Team> allTeam = new ArrayList<>();
+        Amplify.API.query(
+                ModelQuery.list(Team.class),
+                response -> {
+                    for (Team team : response.getData()) {
+                        Log.i("MyAmplifyApp", team.getName());
+                        allTeam.add(team);
+                    }
+                },
+                error -> Log.e("MyAmplifyApp", "Query failure", error)
+        );
 
         EditText title=findViewById(R.id.titleinput);
         EditText desc=findViewById(R.id.descinput);
+        RadioButton RadioButtonFirstTeam = findViewById(R.id.radioButton1);
+        RadioButton RadioButtonSecondTeam = findViewById(R.id.radioButton2);
+        RadioButton RadioButtonThirdTeam = findViewById(R.id.radioButton3);
+
+
+
         Button btn= findViewById(R.id.taskbtn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplication(),"submitted!",Toast.LENGTH_LONG).show();
 
-                // Room DB //
-//                TaskDataBase taskDataBase=TaskDataBase.getInstance(this);
-//                TaskDao taskDao =taskDataBase.taskDao();
-//                Task task= new Task(title.getText().toString(),desc.getText().toString(),"NEW");
-//                taskDao.insert(task);
+                //         Room DB      //
+                //                TaskDataBase taskDataBase=TaskDataBase.getInstance(this);
+                //                TaskDao taskDao =taskDataBase.taskDao();
+                //                Task task= new Task(title.getText().toString(),desc.getText().toString(),"NEW");
+                //                taskDao.insert(task);
 
-                // AWS DB //
+                //       AWS DB        //
+                String teamName = "";
+                if (RadioButtonFirstTeam.isChecked()) {
+                    teamName = RadioButtonFirstTeam.getText().toString();
+
+                } else if (RadioButtonSecondTeam.isChecked()) {
+                    teamName = RadioButtonSecondTeam.getText().toString();
+
+
+                } else if (RadioButtonThirdTeam.isChecked()) {
+                    teamName = RadioButtonThirdTeam.getText().toString();
+
+                }
+                Team selectedTeam = null;
+                for (Team teams : allTeam) {
+                    if (teams.getName().equals(teamName)) {
+                      selectedTeam=teams;
+                    }
+
+                }
+
                 Task todo = Task.builder()
+                        .teamId(selectedTeam.getId())
                         .title(title.getText().toString())
                         .body(desc.getText().toString())
                         .state("New")
@@ -53,9 +93,10 @@ public class addTask extends AppCompatActivity {
 
                 Amplify.API.mutate(
                         ModelMutation.create(todo),
-                        response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
-                        error -> Log.e("MyAmplifyApp", "Create failed", error)
+                        response -> Log.i("newTask", "Added Todo with id: " + response.getData()),
+                        error -> Log.e("newTask", "Create failed", error)
                 );
+
 
                 Intent toHome= new Intent(addTask.this,MainActivity.class);
                 startActivity(toHome);
