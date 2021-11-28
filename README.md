@@ -90,9 +90,10 @@ no update in the UI design
 ---
 
 
-#### lab 33:
+#### lab 33(relation):
 
 * Add new Modal **Team**
+* add relation between the tasks and the teams
 * Edit add task page to choose team
 * Select the team from Setting page and render the task in the main page depending on what you choose
 
@@ -112,3 +113,23 @@ no update in the UI design
 
 ![setting](screenshots/setting33.png)
 
+---
+
+#### lab34(Cognito):
+
+* configure and add the Amplify Authentication (Cognito)
+* Add the Amplify pre-built UI for (Sign in, Sign up, Sign out) Activity to the App.
+
+##### Screenshots:
+
+**SignUp:**
+
+![up](screenshots/signup.png)
+
+**Confirm email**
+
+![confirm](screenshots/email.png)
+
+**SignIn**
+
+![in](screenshots/signin.png)

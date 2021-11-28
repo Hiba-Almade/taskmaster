@@ -88,19 +88,18 @@
 
         <Button
             android:id="@+id/allTasks"
-            android:layout_width="131dp"
-            android:layout_height="46dp"
+            android:layout_width="117dp"
+            android:layout_height="51dp"
             android:layout_marginTop="44dp"
             android:text="All tasks"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.532"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/addTask"
-            android:layout_width="159dp"
-            android:layout_height="46dp"
+            android:layout_width="133dp"
+            android:layout_height="55dp"
             android:layout_marginTop="44dp"
             android:text="Add task"
             app:layout_constraintStart_toStartOf="parent"
@@ -115,6 +114,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/allTasks"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="logout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
