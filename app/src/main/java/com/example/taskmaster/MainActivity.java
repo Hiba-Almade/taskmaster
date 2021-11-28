@@ -1,12 +1,16 @@
 package com.example.taskmaster;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -15,13 +19,18 @@ import android.widget.TextView;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.datastore.generated.model.Team;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+
+import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,10 +49,23 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
 
+        Button settingbutton=findViewById(R.id.settingButton);
+        settingbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settingIntent = new Intent(MainActivity.this, setting.class);
+                startActivity(settingIntent);
+            }
+        });
+
         TextView textView=findViewById(R.id.textView);
+        TextView textView1 = findViewById(R.id.teamLabel);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String userName = sharedPreferences.getString("userName","User");
-        textView.setText(userName+" Tasks");
+        String teamName = sharedPreferences.getString("teamName", "no team");
+        textView.setText("Hello "+ userName);
+        textView1.setText(teamName);
+
 
         Button addTask=findViewById(R.id.addTask);
         addTask.setOnClickListener(new View.OnClickListener() {
@@ -122,44 +144,70 @@ public class MainActivity extends AppCompatActivity {
 //        recyclerView.setLayoutManager(linearLayoutManager);
 //        recyclerView.setAdapter(taskAdapter);
 
-        List<Task> taskList=new ArrayList<>();
-//        Amplify.API.query(
-//                ModelQuery.list(Task.class),
-//                response -> {
-//                    for (Task todo : response.getData()) {
-//                        taskList.add(todo);
-//                    }
-//                    Log.i("list",taskList.toString());
-//                },
-//                error -> Log.e("MyAmplifyApp", "Query failure", error)
+//------------------------create team --------------------------//
+//        Team one = Team.builder()
+//                .name("first team")
+//                .build();
+//
+//        Amplify.API.mutate(
+//                ModelMutation.create(one),
+//                response -> Log.i("Myteam", "Added Todo with id: " + response.getData().getId()),
+//                error -> Log.e("Myteam", "Create failed", error)
+//        );
+//        Team tow = Team.builder()
+//                .name("Second team")
+//                .build();
+//
+//        Amplify.API.mutate(
+//                ModelMutation.create(tow),
+//                response -> Log.i("Myteam", "Added Todo with id: " + response.getData().getId()),
+//                error -> Log.e("Myteam", "Create failed", error)
+//        );
+//        Team three = Team.builder()
+//                .name("third team")
+//                .build();
+//
+//        Amplify.API.mutate(
+//                ModelMutation.create(three),
+//                response -> Log.i("Myteam", "Added Todo with id: " + response.getData().getId()),
+//                error -> Log.e("Myteam", "Create failed", error)
 //        );
 
-        Amplify.DataStore.query(
-                Task.class,
-                tasks -> {
-                    while (tasks.hasNext()) {
-                        Task task = tasks.next();
-                        taskList.add(task);
-                        Log.i("list", "Id " + task.getId());
-                    }
-                },
-                error -> Log.e("MyAmplifyApp", "Query failure", error)
-        );
+
+
+    }
+
+    @Override
+    protected  void onResume() {
+        super.onResume();
         RecyclerView recyclerView = findViewById(R.id.recycleTask);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        recyclerView.setAdapter(new TaskAdapter(taskList));
 
+        Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
 
-        Button settingbutton=findViewById(R.id.settingButton);
-        settingbutton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent settingIntent = new Intent(MainActivity.this, setting.class);
-                startActivity(settingIntent);
+            public boolean handleMessage(@NonNull Message message) {
+                recyclerView.getAdapter().notifyDataSetChanged();
+                return false;
             }
         });
 
+        List<Task> allTask = new ArrayList<>();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String teamId = sharedPreferences.getString("teamID","null");
 
+        Amplify.API.query(
+                ModelQuery.list(Task.class,Task.TEAM_ID.contains(teamId)),
+                response -> {
+                    for (Task task : response.getData()) {
+                        allTask.add(task);
 
+                    }
+                    handler.sendEmptyMessage(1);
+                },
+                error -> Log.e("TaskMaster", error.toString(), error)
+        );
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        recyclerView.setAdapter(new TaskAdapter(allTask));
     }
 }
