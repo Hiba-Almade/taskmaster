@@ -2,8 +2,12 @@ package com.example.taskmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +24,10 @@ import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +38,13 @@ public class addTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        EditText title=findViewById(R.id.titleinput);
+        EditText desc=findViewById(R.id.descinput);
+        RadioButton RadioButtonFirstTeam = findViewById(R.id.radioButton1);
+        RadioButton RadioButtonSecondTeam = findViewById(R.id.radioButton2);
+        RadioButton RadioButtonThirdTeam = findViewById(R.id.radioButton3);
+        Button btn= findViewById(R.id.taskbtn);
+        Button addFile=findViewById(R.id.addfilebutton);
 
         List<Team> allTeam = new ArrayList<>();
         Amplify.API.query(
@@ -43,15 +58,21 @@ public class addTask extends AppCompatActivity {
                 error -> Log.e("MyAmplifyApp", "Query failure", error)
         );
 
-        EditText title=findViewById(R.id.titleinput);
-        EditText desc=findViewById(R.id.descinput);
-        RadioButton RadioButtonFirstTeam = findViewById(R.id.radioButton1);
-        RadioButton RadioButtonSecondTeam = findViewById(R.id.radioButton2);
-        RadioButton RadioButtonThirdTeam = findViewById(R.id.radioButton3);
+        addFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFileFromDevice();
+            }
 
 
+        public void getFileFromDevice(){
+            Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+            chooseFile.setType("*/*");
+            chooseFile = Intent.createChooser(chooseFile, "Select a File");
+            startActivityForResult(chooseFile, 1234);
+        }
+        });
 
-        Button btn= findViewById(R.id.taskbtn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,5 +123,23 @@ public class addTask extends AppCompatActivity {
                 startActivity(toHome);
             }
         });
+
+
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1234)
+            if (resultCode == Activity.RESULT_OK) {
+                Uri selectedImage = data.getData();
+
+                String filePath = data.getData().getPath();
+                String file_extn = filePath.substring(filePath.lastIndexOf(".") + 1);
+
+                Toast.makeText(getApplication(),"File uploaded",Toast.LENGTH_LONG).show();
+            }
+    }
+
+
 }
