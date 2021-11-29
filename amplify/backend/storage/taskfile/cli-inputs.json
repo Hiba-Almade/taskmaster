@@ -1,0 +1,16 @@
+{
+  "resourceName": "taskfile",
+  "policyUUID": "1187e1f7",
+  "bucketName": "taskbucket",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
