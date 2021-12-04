@@ -133,3 +133,23 @@ no update in the UI design
 **SignIn**
 
 ![in](screenshots/signin.png)
+
+
+
+#### lab37(S3 storage):
+
+* update the task to contain a file (image,pdf ..) also.
+* view the file in task details page.
+
+##### Screenshots:
+
+**Add task:**
+
+![add](screenshots/add37.png)
+
+**Task details**
+
+![details](screenshots/details37.png)
+
+
+![details](screenshots/details377.png)

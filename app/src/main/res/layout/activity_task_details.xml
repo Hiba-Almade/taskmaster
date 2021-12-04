@@ -7,6 +7,18 @@
     tools:context=".taskDetails">
 
     <TextView
+        android:id="@+id/linkk"
+        android:layout_width="304dp"
+        android:layout_height="87dp"
+        android:layout_marginTop="132dp"
+        android:text="TextView"
+        android:linksClickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descLabel" />
+
+    <TextView
         android:id="@+id/titleLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,11 +31,23 @@
 
     <TextView
         android:id="@+id/descLabel"
-        android:layout_width="361dp"
-        android:layout_height="188dp"
+        android:layout_width="370dp"
+        android:layout_height="74dp"
         android:layout_marginTop="104dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempor, ligula at imperdiet consequat, tellus magna laoreet augue, vel consequat lectus nibh at augue. Maecenas vel nunc ex. Vivamus ullamcorper porta risus, a tristique ligula vestibulum nec. Nullam sed convallis enim, sed egestas massa. Quisque sit amet leo felis. Ut fringilla, nunc id auctor accumsan, purus erat semper elit, eu dapibus ipsum felis consectetur lectus. Morbi et gravida metus. Integer feugiat lacus ante, ac pulvinar neque sodales sit amet. Donec sagittis, mauris eu volutpat porta, sem neque tristique arcu, vitae convallis dui libero vel magna. Integer a orci consectetur, hendrerit enim ac, bibendum erat. Fusce ut odio vel dolor bibendum tempus. Vestibulum in justo ac justo rhoncus sodales malesuada semper eros. Cras condimentum turpis ut nibh accumsan, id fringilla diam scelerisque."
+        android:text="text"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleLabel" />
+
+    <ImageView
+        android:id="@+id/imgg"
+        android:layout_width="262dp"
+        android:layout_height="326dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descLabel"
+        app:srcCompat="@drawable/placeholder" />
 </androidx.constraintlayout.widget.ConstraintLayout>
