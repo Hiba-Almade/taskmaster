@@ -1,5 +1,6 @@
 package com.example.taskmaster;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -28,11 +29,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class addTask extends AppCompatActivity {
-
+    Uri dataUrl;
+    String fileName = null;
+    String fileKey=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,20 +62,6 @@ public class addTask extends AppCompatActivity {
                 error -> Log.e("MyAmplifyApp", "Query failure", error)
         );
 
-        addFile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFileFromDevice();
-            }
-
-
-        public void getFileFromDevice(){
-            Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
-            chooseFile.setType("*/*");
-            chooseFile = Intent.createChooser(chooseFile, "Select a File");
-            startActivityForResult(chooseFile, 1234);
-        }
-        });
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +100,7 @@ public class addTask extends AppCompatActivity {
                         .title(title.getText().toString())
                         .body(desc.getText().toString())
                         .state("New")
+                        .fileKey(fileName)
                         .build();
 
                 Amplify.API.mutate(
@@ -124,21 +115,46 @@ public class addTask extends AppCompatActivity {
             }
         });
 
+        addFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFileFromDevice();
+            }
+
+            public void getFileFromDevice(){
+                Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+                chooseFile.setType("*/*");
+                chooseFile = Intent.createChooser(chooseFile, "Select a File");
+                startActivityForResult(chooseFile, 1234);
+            }
+        });
 
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode,Intent data) {
+       Log.i("file", "Successfully uploaded: " + "00000000000");
+//        assert data != null;
+
+        File file = new File(data.getData().getPath());
+        dataUrl = data.getData();
+         fileName = file.getName();
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1234)
-            if (resultCode == Activity.RESULT_OK) {
-                Uri selectedImage = data.getData();
+        try {
+            InputStream exampleInputStream = getContentResolver().openInputStream(dataUrl);
 
-                String filePath = data.getData().getPath();
-                String file_extn = filePath.substring(filePath.lastIndexOf(".") + 1);
+            Amplify.Storage.uploadInputStream(
+                    fileName,
+                    exampleInputStream,
+                    result -> Log.i("file", "Successfully uploaded: " + result.getKey()),
+                    storageFailure -> Log.e("file", "Upload failed", storageFailure)
+            );
+            Toast.makeText(getApplication(),"File added!",Toast.LENGTH_LONG).show();
 
-                Toast.makeText(getApplication(),"File uploaded",Toast.LENGTH_LONG).show();
-            }
+        }  catch (FileNotFoundException error) {
+            Log.e("file", "Could not find file to open for input stream.", error);
+        }
+
     }
 
 
