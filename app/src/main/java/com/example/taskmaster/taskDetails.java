@@ -1,16 +1,19 @@
 package com.example.taskmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Dao;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
 
 import java.io.File;
+import java.util.Locale;
 
 public class taskDetails extends AppCompatActivity {
 
@@ -75,6 +79,21 @@ public class taskDetails extends AppCompatActivity {
                 },
                 error -> Log.e("download",  "Download Failure", error)
         );
+
+
+       Double altitude=getIntent().getDoubleExtra("altitude",0);
+       Double longitude = getIntent().getDoubleExtra("longitude",0);
+       Log.i("geet",altitude+"");
+       Log.i("geet",longitude+"");
+        Button btn = findViewById(R.id.map);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?q=loc:%f,%f", longitude,altitude);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(intent);
+            }
+        });
 
     }
 }

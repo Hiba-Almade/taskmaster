@@ -2,5 +2,11 @@
   "AppSyncApiName": "taskmaster",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2021-11-23T15:50:40.630Z"
+  "AuthModeLastUpdated": "2021-12-05T18:14:41.941Z",
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authtaskmasterb266feff",
+      "Outputs.UserPoolId"
+    ]
+  }
 }

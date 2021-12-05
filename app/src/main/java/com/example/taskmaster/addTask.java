@@ -1,12 +1,18 @@
 package com.example.taskmaster;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -27,6 +33,9 @@ import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -39,20 +48,25 @@ import java.util.List;
 public class addTask extends AppCompatActivity {
     Uri dataUrl;
     String fileName = null;
-    String fileKey=null;
+    String fileKey = null;
+    double altitude =0;
+    double longitude = 0;
+    private FusedLocationProviderClient fusedLocationClient;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        EditText title=findViewById(R.id.titleinput);
-        EditText desc=findViewById(R.id.descinput);
+        EditText title = findViewById(R.id.titleinput);
+        EditText desc = findViewById(R.id.descinput);
         RadioButton RadioButtonFirstTeam = findViewById(R.id.radioButton1);
         RadioButton RadioButtonSecondTeam = findViewById(R.id.radioButton2);
         RadioButton RadioButtonThirdTeam = findViewById(R.id.radioButton3);
-        Button btn= findViewById(R.id.taskbtn);
-        Button addFile=findViewById(R.id.addfilebutton);
+        Button btn = findViewById(R.id.taskbtn);
+        Button addFile = findViewById(R.id.addfilebutton);
 
         //intent
         Intent intent = getIntent();
@@ -64,6 +78,31 @@ public class addTask extends AppCompatActivity {
             }
         }
 
+
+        //location
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1212);
+
+        }else {
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                                @Override
+                                public void onSuccess(Location location) {
+                                    if (location != null) {
+                                        altitude=  location.getAltitude();
+                                        longitude=  location.getLongitude();
+                                        Toast.makeText(addTask.this, "Location: "+location, Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        Toast.makeText(addTask.this, "null", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }});
+
+
+        }
+        //
         List<Team> allTeam = new ArrayList<>();
         Amplify.API.query(
                 ModelQuery.list(Team.class),
@@ -115,6 +154,8 @@ public class addTask extends AppCompatActivity {
                         .body(desc.getText().toString())
                         .state("New")
                         .fileKey(fileName)
+                        .altitude(altitude)
+                        .longitude(longitude)
                         .build();
 
                 Amplify.API.mutate(

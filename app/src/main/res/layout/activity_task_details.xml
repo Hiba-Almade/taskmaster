@@ -10,11 +10,11 @@
         android:id="@+id/linkk"
         android:layout_width="304dp"
         android:layout_height="87dp"
-        android:layout_marginTop="132dp"
-        android:text="TextView"
+        android:layout_marginTop="48dp"
         android:linksClickable="true"
+        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descLabel" />
 
@@ -22,7 +22,7 @@
         android:id="@+id/titleLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="92dp"
         android:text="task title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -33,21 +33,32 @@
         android:id="@+id/descLabel"
         android:layout_width="370dp"
         android:layout_height="74dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="12dp"
         android:text="text"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.695"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleLabel" />
 
     <ImageView
         android:id="@+id/imgg"
-        android:layout_width="262dp"
-        android:layout_height="326dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="189dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descLabel"
         app:srcCompat="@drawable/placeholder" />
+
+    <Button
+        android:id="@+id/map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:text="map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgg" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
