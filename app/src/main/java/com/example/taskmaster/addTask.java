@@ -21,9 +21,12 @@ import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
+import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -41,6 +44,7 @@ public class addTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         EditText title=findViewById(R.id.titleinput);
         EditText desc=findViewById(R.id.descinput);
@@ -49,6 +53,16 @@ public class addTask extends AppCompatActivity {
         RadioButton RadioButtonThirdTeam = findViewById(R.id.radioButton3);
         Button btn= findViewById(R.id.taskbtn);
         Button addFile=findViewById(R.id.addfilebutton);
+
+        //intent
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if (type.startsWith("image/")) {
+                handleSendImage(intent); // Handle single image being sent
+            }
+        }
 
         List<Team> allTeam = new ArrayList<>();
         Amplify.API.query(
@@ -157,5 +171,25 @@ public class addTask extends AppCompatActivity {
 
     }
 
+    void handleSendImage(Intent intent) {
+        Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        File file = new File(imageUri.getPath());
+        fileName=file.getName();
+        if (imageUri != null) {
+
+            try {
+                InputStream exampleInputStream = getContentResolver().openInputStream(imageUri);
+                Amplify.Storage.uploadInputStream(
+                        fileName,
+                        exampleInputStream,
+                        result -> Log.i("TaskMaster", "Successfully uploaded: " + result.getKey()),
+                        storageFailure -> Log.e("TaskMaster", "Upload failed", storageFailure)
+                );
+            } catch (FileNotFoundException error) {
+                Log.e("TaskMaster", "Could not find file to open for input stream.", error);
+            }
+        }
+        Toast.makeText(getApplicationContext(),imageUri.getPath(),Toast.LENGTH_SHORT).show();
+    }
 
 }
